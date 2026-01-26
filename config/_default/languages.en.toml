@@ -1,0 +1,15 @@
+disabled = false
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "ワセリンの部屋"
+
+[params]
+displayName = "JA"
+isoCode = "en"
+rtl = false
+dateFormat = "2 January 2006"
+logo = "icon.png"
+
+["params.author"]
+name = "ワセリン"
