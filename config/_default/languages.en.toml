@@ -13,3 +13,15 @@ logo = "icon.png"
 
 ["params.author"]
 name = "ワセリン"
+image = "profile.jpg"
+headline = "色々好きで色々やります。<br><br>waslyn0502★gmail.com (★→@)"
+bio = "色々好きで色々やります。"
+
+[[params.author.links]]
+  x-twitter = "https://x.com/wasabi_apple"
+[[params.author.links]]
+  instagram = "https://www.instagram.com/wasssslyn/"
+[[params.author.links]]
+  niconico = "https://www.nicovideo.jp/user/70670553"
+[[params.author.links]]
+  pixiv="https://www.pixiv.net/users/67607687"
