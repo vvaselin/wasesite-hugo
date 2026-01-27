@@ -14,8 +14,8 @@ logo = "icon.png"
 ["params.author"]
 name = "ワセリン"
 image = "profile.jpg"
-headline = "色々好きで色々やります。<br><br>waslyn0502★gmail.com (★→@)"
-bio = "色々好きで色々やります。"
+headline = "絵描いたり、色々やるし色々好きです。<br><br>waslyn0502★gmail.com (★→@)"
+bio = "絵描いたり、色々やるし色々好きです。"
 
 [[params.author.links]]
   x-twitter = "https://x.com/wasabi_apple"
