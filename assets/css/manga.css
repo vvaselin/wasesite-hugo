@@ -1,0 +1,67 @@
+.manga-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    direction: rtl; /* 右から左へ */
+}
+
+.manga-viewer {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.manga-track {
+    display: flex;
+    flex-wrap: nowrap; /* 縦並びを強制禁止 */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* スクロールバーを見やすく */
+.manga-track::-webkit-scrollbar {
+    height: 12px;
+}
+.manga-track::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+}
+
+.manga-page {
+    flex: 0 0 100%; /* スマホは1枚 */
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    background: #000;
+}
+
+.manga-page img {
+    width: 100%;
+    height: auto;
+    max-height: 85vh; /* 画面に収まる最大高さ */
+    object-fit: contain;
+    margin: 0 !important; /* テーマの余白を打ち消し */
+    padding: 0 !important;
+}
+
+/* PC表示：見開き設定 */
+@media (min-width: 768px) {
+    .manga-page {
+        flex: 0 0 50%; /* PCは2枚で100% */
+    }
+}
+
+/* クリックエリア（左右30%） */
+.manga-nav-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    z-index: 5;
+    cursor: pointer;
+}
+.manga-nav-overlay.prev { right: 0; } /* 右側クリックで戻る */
+.manga-nav-overlay.next { left: 0; }  /* 左側クリックで進む */

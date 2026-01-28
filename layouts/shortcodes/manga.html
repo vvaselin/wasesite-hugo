@@ -1,0 +1,119 @@
+{{ $dir := .Get "dir" }}
+{{ $files := readDir (print "static/" $dir) }}
+
+<style>
+    /* Blowfishの親要素の幅を最大限活かす設定 */
+    .manga-wrapper {
+        width: 100%;
+        margin: 2rem 0;
+        /* 親の制限（prose）の中で最大化。
+           もしもっと広げたい場合は、記事のFrontmatterで `layout: wide` を推奨 */
+    }
+
+    .manga-container {
+        width: 100%;
+        background: #000;
+        position: relative;
+        overflow: hidden;
+        /* 画像の選択・ドラッグを完全に禁止 */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: pan-y; /* 横スクロールはブラウザに任せ、縦スクロールを許容 */
+    }
+
+    .manga-track {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        direction: rtl; /* 右から左へ */
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        cursor: pointer;
+    }
+
+    /* スクロールバーを見やすく（Blowfishのダークモードに調和） */
+    .manga-track::-webkit-scrollbar { height: 10px; }
+    .manga-track::-webkit-scrollbar-thumb { background: #444; border-radius: 5px; }
+    .manga-track::-webkit-scrollbar-track { background: #111; }
+
+    .manga-page {
+        flex: 0 0 100% !important; /* スマホ: 1ページ */
+        scroll-snap-align: start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+        pointer-events: none; /* 画像への直接的な干渉（保存ダイアログ等）を防ぐ */
+    }
+
+    .manga-page img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 85vh;
+        object-fit: contain;
+        margin: 0 !important;
+        /* ドラッグによる「ゴースト」を防ぐ */
+        -webkit-user-drag: none;
+    }
+
+    /* PC・タブレット表示（見開き） */
+    @media (min-width: 768px) {
+        .manga-page {
+            flex: 0 0 50% !important;
+        }
+    }
+
+    /* 透明なナビゲーションエリア */
+    .manga-nav-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        pointer-events: none; /* 下のスクロール（フリック）を邪魔しない */
+        z-index: 10;
+    }
+    .manga-nav-btn {
+        height: 100%;
+        width: 30%;
+        pointer-events: auto; /* クリックだけ受け取る */
+        cursor: pointer;
+    }
+</style>
+
+<div class="manga-wrapper">
+    <div class="manga-container" id="manga-{{ .Ordinal }}">
+        <div class="manga-track">
+            {{ range sort $files "Name" "asc" }}
+                {{ if (findRE "\\.(jpg|jpeg|png|webp|gif)$" .Name) }}
+                    <div class="manga-page">
+                        <img src="{{ (print "/" $dir "/" .Name) | relURL }}" alt="Manga Page">
+                    </div>
+                {{ end }}
+            {{ end }}
+        </div>
+        
+        <div class="manga-nav-layer">
+            <div class="manga-nav-btn" onclick="scrollManga('manga-{{ .Ordinal }}', 'next')" title="次へ"></div>
+            <div style="flex-grow:1;"></div>
+            <div class="manga-nav-btn" onclick="scrollManga('manga-{{ .Ordinal }}', 'prev')" title="戻る"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function scrollManga(containerId, direction) {
+    const track = document.querySelector(`#${containerId} .manga-track`);
+    const step = track.clientWidth;
+    // direction: rtl 環境では、左がマイナス、右がプラス
+    if (direction === 'next') {
+        track.scrollBy({ left: -step, behavior: 'smooth' });
+    } else {
+        track.scrollBy({ left: step, behavior: 'smooth' });
+    }
+}
+</script>
