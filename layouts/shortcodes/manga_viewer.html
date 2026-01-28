@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+  .swiper { width: 100%; height: auto; max-width: 800px; margin: 0 auto; }
+  .swiper-slide img { width: 100%; height: auto; display: block; object-fit: contain; }
+  /* 右から左へ（RTL）の設定 */
+  .swiper { direction: rtl; }
+</style>
+
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    {{ $images := .Page.Resources.ByType "image" }}
+    {{ range $images }}
+    <div class="swiper-slide">
+      {{ $optimized := .Resize "1200x webp" }} <img src="{{ $optimized.RelPermalink }}" alt="manga page" loading="lazy">
+    </div>
+    {{ end }}
+  </div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-pagination"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    loop: false,
+    rtl: true, // 右から左へ
+    pagination: { el: ".swiper-pagination", type: "progressbar" }, // プログレスバー形式が漫画に合う
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+    keyboard: { enabled: true }, // キーボードの左右キーで操作可能
+    mousewheel: true, // マウスホイール対応
+  });
+</script>
