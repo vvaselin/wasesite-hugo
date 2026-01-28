@@ -7,5 +7,3 @@ draft: false
 ---
 
 # こん
-
-{{< manga_viewer >}}

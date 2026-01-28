@@ -8,14 +8,14 @@
     z-index: -1; /* コンテンツの裏側に配置 */
     overflow: hidden;
     pointer-events: none;
-    background: linear-gradient(to bottom, #f0fdf8, #e0f2fe); /* 背景も淡い緑〜青のグラデに */
+    background: linear-gradient(to bottom, #f1fffa, #8594ff); /* 背景も淡い緑〜青のグラデに */
 }
 
 /* 泡の共通スタイル */
 .bubble {
     position: absolute;
     bottom: -100px;
-    background-color: rgba(255, 255, 255, 0.5); /* 白の半透明 */
+    background-color: rgba(210, 241, 255, 0.691); /* 白の半透明 */
     border-radius: 50%;
     animation: rise var(--t) infinite linear;
 }
